@@ -2,219 +2,126 @@
 
 {% block content %}
 
-<section class="film-detail">
+<section class="film-hero">
+    <div>
+        {% if film.3 %}
+            <img src="{{ film.3 }}" class="big-poster-img" alt="{{ film.1 }}">
+        {% else %}
+            <div class="big-poster">{{ film.1|slice:":1" }}</div>
+        {% endif %}
+    </div>
 
-    {% if film.3 %}
-        <img src="{{ film.3 }}" class="big-poster-img">
-    {% else %}
-        <div class="big-poster">
-            {{ film.1|slice:":1" }}
-        </div>
-    {% endif %}
+    <div class="film-info">
+        <span class="pill">{{ film.5 }}</span>
+        <h1>{{ film.1 }}</h1>
+        <p class="meta">{{ film.2 }} • Réalisé par {{ film.4 }}</p>
 
-    <div class="detail-info">
-
-        <span class="category">
-            {{ film.5 }}
-        </span>
-
-        <h1>
-            {{ film.1 }}
-        </h1>
-
-        <p>
-            {{ film.2 }}
-        </p>
-
-        <p>
-            Réalisateur : {{ film.4 }}
-        </p>
-
-        <div class="score">
-
-            <strong>
-                ★ {{ moyenne_globale|default:"N/A" }}
-            </strong>
-
-            <span>
-                Moyenne globale
-            </span>
-
+        <div class="score-box">
+            <strong>★ {{ moyenne_globale|default:"N/A" }}</strong>
+            <span>Moyenne spectateurs</span>
         </div>
 
         <div class="actions">
-
             {% if user.is_authenticated %}
-                <a class="main-btn"
-                   href="/commentaire/ajouter/{{ film.0 }}/">
-                    Ajouter un commentaire
-                </a>
+                <a class="primary-btn" href="/commentaire/ajouter/{{ film.0 }}/">Ajouter un avis</a>
+            {% else %}
+                <a class="primary-btn" href="/connexion/">Connecte-toi pour commenter</a>
             {% endif %}
 
             {% if user.is_superuser %}
-                <a class="second-btn"
-                   href="/film/modifier/{{ film.0 }}/">
-                    Modifier
-                </a>
+                <a class="secondary-btn" href="/film/modifier/{{ film.0 }}/">Modifier</a>
             {% endif %}
-
         </div>
-
     </div>
+</section>
 
+<section class="tabs">
+    <a href="#casting">Casting</a>
+    <a href="#notes">Notes</a>
+    <a href="#avis">Avis</a>
 </section>
 
 <section class="content-grid">
+    <div class="panel" id="casting">
+        <h2>Casting</h2>
 
-<div class="panel">
-
-<h2>Casting</h2>
-
-<div class="cast-grid">
-
-{% for acteur in acteurs %}
-
-<div class="cast-card">
-
-    <div class="actor-avatar">
-        {{ acteur.1|slice:":1" }}{{ acteur.0|slice:":1" }}
+        <div class="cast-grid">
+            {% for acteur in acteurs %}
+                <div class="cast-card">
+                    <div class="actor-avatar">{{ acteur.1|slice:":1" }}{{ acteur.0|slice:":1" }}</div>
+                    <strong>{{ acteur.1 }} {{ acteur.0 }}</strong>
+                    <p>{{ acteur.2 }} ans</p>
+                </div>
+            {% empty %}
+                <p>Aucun acteur renseigné.</p>
+            {% endfor %}
+        </div>
     </div>
 
-    <strong>
-        {{ acteur.1 }} {{ acteur.0 }}
-    </strong>
+    <div class="panel" id="notes">
+        <h2>Notes par profil</h2>
 
-    <p>
-        {{ acteur.2 }} ans
-    </p>
-
-</div>
-
-{% endfor %}
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<h2>Moyennes</h2>
-
-{% for moyenne in moyennes %}
-
-<div class="average-line">
-
-    <span>
-        {{ moyenne.0 }}
-    </span>
-
-    <strong>
-        {{ moyenne.1 }}/10
-    </strong>
-
-</div>
-
-{% endfor %}
-
-</div>
-
+        {% for moyenne in moyennes %}
+            <div class="average-line">
+                <span>{{ moyenne.0 }}</span>
+                <strong>{{ moyenne.1 }}/10</strong>
+            </div>
+        {% empty %}
+            <p>Aucune note.</p>
+        {% endfor %}
+    </div>
 </section>
 
 <section class="reviews-special">
+    <div class="panel">
+        <h2>Meilleur avis</h2>
 
-<div class="panel">
-
-<h2>Meilleur commentaire</h2>
-
-{% if meilleur %}
-
-<p class="big-note">
-    {{ meilleur.1 }}/10
-</p>
-
-<p>
-    {{ meilleur.0 }}
-</p>
-
-<p>
-    {{ meilleur.2 }}
-</p>
-
-{% endif %}
-
-</div>
-
-<div class="panel">
-
-<h2>Pire commentaire</h2>
-
-{% if pire %}
-
-<p class="big-note">
-    {{ pire.1 }}/10
-</p>
-
-<p>
-    {{ pire.0 }}
-</p>
-
-<p>
-    {{ pire.2 }}
-</p>
-
-{% endif %}
-
-</div>
-
-</section>
-
-<section class="panel">
-
-<h2>Commentaires</h2>
-
-{% for commentaire in commentaires %}
-
-<div class="comment">
-
-    <div>
-
-        <strong>
-            {{ commentaire.1 }}
-        </strong>
-
-        <span>
-            {{ commentaire.2 }}
-        </span>
-
+        {% if meilleur %}
+            <p class="big-note">{{ meilleur.1 }}/10</p>
+            <p><strong>{{ meilleur.0 }}</strong></p>
+            <p>{{ meilleur.2 }}</p>
+        {% else %}
+            <p>Aucun avis.</p>
+        {% endif %}
     </div>
 
-    <p class="rating">
-        ★ {{ commentaire.3 }}/10
-    </p>
+    <div class="panel">
+        <h2>Avis le plus bas</h2>
 
-    <p>
-        {{ commentaire.4 }}
-    </p>
+        {% if pire %}
+            <p class="big-note">{{ pire.1 }}/10</p>
+            <p><strong>{{ pire.0 }}</strong></p>
+            <p>{{ pire.2 }}</p>
+        {% else %}
+            <p>Aucun avis.</p>
+        {% endif %}
+    </div>
+</section>
 
-    <small>
-        {{ commentaire.5 }}
-    </small>
+<section class="panel" id="avis">
+    <h2>Avis des utilisateurs</h2>
 
-    {% if user.is_superuser or user.username == commentaire.6 %}
+    {% for commentaire in commentaires %}
+        <div class="review">
+            <div class="review-top">
+                <div>
+                    <strong>{{ commentaire.1 }}</strong>
+                    <span>{{ commentaire.2 }}</span>
+                </div>
+                <p class="rating">★ {{ commentaire.3 }}/10</p>
+            </div>
 
-        <br><br>
+            <p>{{ commentaire.4 }}</p>
+            <small>{{ commentaire.5 }}</small>
 
-        <a class="danger-btn small"
-           href="/commentaire/supprimer/{{ commentaire.0 }}/">
-            Supprimer
-        </a>
-
-    {% endif %}
-
-</div>
-
-{% endfor %}
-
+            {% if user.is_superuser or user.username == commentaire.6 %}
+                <br><br>
+                <a class="danger-btn small" href="/commentaire/supprimer/{{ commentaire.0 }}/">Supprimer</a>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Aucun avis pour ce film.</p>
+    {% endfor %}
 </section>
 
 {% endblock %}

@@ -3,45 +3,32 @@
 {% block content %}
 
 <section class="form-card">
+    <h1>Ajouter un film</h1>
 
-<h1>Ajouter un film</h1>
+    <form method="POST">
+        {% csrf_token %}
 
-<form method="POST">
+        <label>Titre</label>
+        <input type="text" name="titre" required>
 
-{% csrf_token %}
+        <label>Année</label>
+        <input type="number" name="annee_sortie" required>
 
-<label>Titre</label>
-<input type="text" name="titre" required>
+        <label>URL affiche</label>
+        <input type="text" name="affiche" placeholder="https://...">
 
-<label>Année</label>
-<input type="number" name="annee_sortie" required>
+        <label>Réalisateur</label>
+        <input type="text" name="realisateur">
 
-<label>URL affiche</label>
-<input type="text" name="affiche">
+        <label>Catégorie</label>
+        <select name="id_categorie">
+            {% for categorie in categories %}
+                <option value="{{ categorie.0 }}">{{ categorie.1 }}</option>
+            {% endfor %}
+        </select>
 
-<label>Réalisateur</label>
-<input type="text" name="realisateur">
-
-<label>Catégorie</label>
-
-<select name="id_categorie">
-
-{% for categorie in categories %}
-
-<option value="{{ categorie.0 }}">
-{{ categorie.1 }}
-</option>
-
-{% endfor %}
-
-</select>
-
-<button type="submit">
-Ajouter
-</button>
-
-</form>
-
+        <button type="submit">Ajouter</button>
+    </form>
 </section>
 
 {% endblock %}

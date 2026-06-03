@@ -3,35 +3,19 @@
 {% block content %}
 
 <section class="form-card">
+    <h1>Ajouter un avis</h1>
 
-<h1>Ajouter un commentaire</h1>
+    <form method="POST">
+        {% csrf_token %}
 
-<form method="POST">
+        <label>Note</label>
+        <input type="number" name="note" min="0" max="10" required>
 
-{% csrf_token %}
+        <label>Commentaire</label>
+        <textarea name="commentaire" rows="8" required></textarea>
 
-<label>Note</label>
-
-<input
-type="number"
-name="note"
-min="0"
-max="10"
-required>
-
-<label>Commentaire</label>
-
-<textarea
-name="commentaire"
-rows="8"
-required></textarea>
-
-<button type="submit">
-Publier
-</button>
-
-</form>
-
+        <button type="submit">Publier l’avis</button>
+    </form>
 </section>
 
 {% endblock %}

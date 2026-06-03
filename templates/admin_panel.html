@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="page-title">
+    <h1>Tableau de bord admin</h1>
+    <p>Gestion du site CinéScope.</p>
+</section>
+
+<section class="admin-stats">
+    <div>
+        <strong>{{ nb_films }}</strong>
+        <span>Films</span>
+    </div>
+
+    <div>
+        <strong>{{ nb_acteurs }}</strong>
+        <span>Acteurs</span>
+    </div>
+
+    <div>
+        <strong>{{ nb_commentaires }}</strong>
+        <span>Commentaires</span>
+    </div>
+
+    <div>
+        <strong>{{ users|length }}</strong>
+        <span>Utilisateurs</span>
+    </div>
+</section>
+
+<section class="admin-actions">
+    <a class="primary-btn" href="/film/ajouter/">Ajouter un film</a>
+    <a class="secondary-btn" href="/films/">Voir le site</a>
+</section>
+
+<section class="admin-grid">
+
+    <div class="admin-card large">
+        <h2>Gestion des films</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Année</th>
+                    <th>Réalisateur</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for film in films %}
+                    <tr>
+                        <td>{{ film.1 }}</td>
+                        <td>{{ film.2 }}</td>
+                        <td>{{ film.3 }}</td>
+                        <td>
+                            <a class="table-btn" href="/film/{{ film.0 }}/">Voir</a>
+                            <a class="table-btn" href="/film/modifier/{{ film.0 }}/">Modifier</a>
+                            <a class="table-btn danger" href="/film/supprimer/{{ film.0 }}/">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="admin-card">
+        <h2>Utilisateurs</h2>
+
+        {% for user_item in users %}
+            <div class="user-line">
+                <strong>{{ user_item.username }}</strong>
+
+                {% if user_item.is_superuser %}
+                    <span>Admin</span>
+                {% else %}
+                    <span>Utilisateur</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+<section class="admin-card">
+    <h2>Derniers commentaires</h2>
+
+    {% for commentaire in commentaires %}
+        <div class="admin-comment">
+            <div>
+                <strong>{{ commentaire.1 }}</strong>
+                <span>{{ commentaire.2 }} • {{ commentaire.3 }}/10</span>
+            </div>
+
+            <p>{{ commentaire.4 }}</p>
+
+            <a class="table-btn danger" href="/commentaire/supprimer/{{ commentaire.0 }}/">
+                Supprimer
+            </a>
+        </div>
+    {% endfor %}
+</section>
+
+{% endblock %}

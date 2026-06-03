@@ -373,3 +373,43 @@ def inscription(request):
 def deconnexion(request):
     logout(request)
     return redirect("/")
+
+@user_passes_test(est_admin, login_url="/connexion/")
+def admin_panel(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT COUNT(*) FROM film")
+        nb_films = cursor.fetchone()[0]
+
+        cursor.execute("SELECT COUNT(*) FROM acteur")
+        nb_acteurs = cursor.fetchone()[0]
+
+        cursor.execute("SELECT COUNT(*) FROM commentaire")
+        nb_commentaires = cursor.fetchone()[0]
+
+        cursor.execute("""
+            SELECT id_film, titre, annee_sortie, realisateur
+            FROM film
+            ORDER BY titre
+        """)
+        films = cursor.fetchall()
+
+        cursor.execute("""
+            SELECT commentaire.id_commentaire, film.titre, personne.pseudo, commentaire.note, commentaire.commentaire
+            FROM commentaire
+            JOIN film ON commentaire.id_film = film.id_film
+            JOIN personne ON commentaire.id_personne = personne.id_personne
+            ORDER BY commentaire.date_commentaire DESC
+            LIMIT 10
+        """)
+        commentaires = cursor.fetchall()
+
+    users = User.objects.all().order_by("username")
+
+    return render(request, "admin_panel.html", {
+        "nb_films": nb_films,
+        "nb_acteurs": nb_acteurs,
+        "nb_commentaires": nb_commentaires,
+        "films": films,
+        "commentaires": commentaires,
+        "users": users
+    })
