@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero">
+
+    <span class="category">
+        SAÉ Filmographie
+    </span>
+
+    <h1>
+        Bienvenue sur CinéFilms
+    </h1>
+
+    <p>
+        Consultez les films, les acteurs, les catégories et les avis des utilisateurs.
+    </p>
+
+</section>
+
+<section class="stats">
+
+    <div>
+        <strong>{{ nb_films }}</strong>
+        <span>Films</span>
+    </div>
+
+    <div>
+        <strong>{{ nb_acteurs }}</strong>
+        <span>Acteurs</span>
+    </div>
+
+    <div>
+        <strong>{{ nb_commentaires }}</strong>
+        <span>Commentaires</span>
+    </div>
+
+</section>
+
+<h2>Top Films</h2>
+
+<section class="movie-grid">
+
+{% for film in top_films %}
+
+<article class="movie-card">
+
+    {% if film.5 %}
+        <img src="{{ film.5 }}" class="poster-img">
+    {% else %}
+        <div class="poster">
+            {{ film.1|slice:":1" }}
+        </div>
+    {% endif %}
+
+    <div class="movie-body">
+
+        <span class="category">
+            {{ film.3 }}
+        </span>
+
+        <h3>
+            {{ film.1 }}
+        </h3>
+
+        <p>
+            {{ film.2 }}
+        </p>
+
+        <p class="rating">
+            ★ {{ film.4 }}
+        </p>
+
+        <a class="main-btn" href="/film/{{ film.0 }}/">
+            Voir la fiche
+        </a>
+
+    </div>
+
+</article>
+
+{% endfor %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="form-card">
+
+<h1>Ajouter un commentaire</h1>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<label>Note</label>
+
+<input
+type="number"
+name="note"
+min="0"
+max="10"
+required>
+
+<label>Commentaire</label>
+
+<textarea
+name="commentaire"
+rows="8"
+required></textarea>
+
+<button type="submit">
+Publier
+</button>
+
+</form>
+
+</section>
+
+{% endblock %}

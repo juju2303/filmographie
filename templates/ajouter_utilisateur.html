@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="form-card">
+    <h1>Ajouter un utilisateur</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Pseudo</label>
+        <input type="text" name="pseudo" required>
+
+        <label>Nom prénom</label>
+        <input type="text" name="nom_prenom" required>
+
+        <label>Mail</label>
+        <input type="email" name="mail" required>
+
+        <label>Mot de passe</label>
+        <input type="password" name="mot_de_passe" required>
+
+        <label>Type</label>
+        <select name="type_personne">
+            <option value="professionnel">Professionnel</option>
+            <option value="amateur">Amateur</option>
+        </select>
+
+        <button type="submit">Ajouter</button>
+    </form>
+</section>
+
+{% endblock %}

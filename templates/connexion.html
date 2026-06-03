@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="form-card">
+
+<h1>Connexion</h1>
+
+{% if erreur %}
+<p style="color:red;">
+{{ erreur }}
+</p>
+{% endif %}
+
+<form method="POST">
+
+{% csrf_token %}
+
+<label>Nom utilisateur</label>
+
+<input
+type="text"
+name="username"
+required>
+
+<label>Mot de passe</label>
+
+<input
+type="password"
+name="password"
+required>
+
+<button type="submit">
+Connexion
+</button>
+
+</form>
+
+</section>
+
+{% endblock %}
