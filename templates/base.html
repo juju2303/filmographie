@@ -8,47 +8,39 @@
 </head>
 <body>
 
-<header class="topbar">
+<header class="site-header">
+    <div class="header-main">
+        <a href="/" class="logo">
+            <span class="logo-box">CF</span>
+            <span>CinéFilms</span>
+        </a>
 
-    <a class="brand" href="/">
-        <div class="brand-logo">CF</div>
+        <nav class="main-nav">
+            <a href="/">Accueil</a>
+            <a href="/films/">Films</a>
+            <a href="/categories/">Catégories</a>
+            <a href="/top-films/">Top films</a>
 
-        <div>
-            <strong>CinéFilms</strong>
-            <span>Filmographie</span>
+            {% if user.is_superuser %}
+                <a href="/film/ajouter/">Ajouter un film</a>
+            {% endif %}
+        </nav>
+
+        <div class="user-nav">
+            {% if user.is_authenticated %}
+                <span>{{ user.username }}</span>
+                <a href="/deconnexion/">Déconnexion</a>
+            {% else %}
+                <a href="/connexion/">Connexion</a>
+                <a href="/inscription/">Inscription</a>
+            {% endif %}
         </div>
-    </a>
-
-    <nav>
-
-        <a href="/">Accueil</a>
-
-        <a href="/films/">Films</a>
-
-        <a href="/categories/">Catégories</a>
-
-        <a href="/top-films/">Top Films</a>
-
-        {% if user.is_superuser %}
-            <a href="/film/ajouter/">Ajouter un film</a>
-        {% endif %}
-
-        {% if user.is_authenticated %}
-            <a href="/deconnexion/">Déconnexion</a>
-        {% else %}
-            <a href="/connexion/">Connexion</a>
-            <a href="/inscription/">Inscription</a>
-        {% endif %}
-
-    </nav>
-
+    </div>
 </header>
 
-<main>
-
-{% block content %}
-{% endblock %}
-
+<main class="page">
+    {% block content %}
+    {% endblock %}
 </main>
 
 </body>
