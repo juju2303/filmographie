@@ -2,32 +2,19 @@
 
 {% block content %}
 
-<h1>Catégories</h1>
+<section class="page-title">
+    <h1>Catégories</h1>
+    <p>Retrouve les films selon leur genre.</p>
+</section>
 
 <section class="category-grid">
-
-{% for categorie in categories %}
-
-<a
-class="category-box"
-href="/categorie/{{ categorie.0 }}/">
-
-    <h3>
-        {{ categorie.1 }}
-    </h3>
-
-    <p>
-        {{ categorie.2 }}
-    </p>
-
-    <span>
-        {{ categorie.3 }} film(s)
-    </span>
-
-</a>
-
-{% endfor %}
-
+    {% for categorie in categories %}
+        <a class="category-card" href="/categorie/{{ categorie.0 }}/">
+            <h3>{{ categorie.1 }}</h3>
+            <p>{{ categorie.2 }}</p>
+            <span>{{ categorie.3 }} film(s)</span>
+        </a>
+    {% endfor %}
 </section>
 
 {% endblock %}

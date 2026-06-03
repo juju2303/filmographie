@@ -3,23 +3,19 @@
 {% block content %}
 
 <section class="hero">
+    <div class="hero-text">
+        <span class="pill">Cinéma et critiques</span>
+        <h1>Trouve ton prochain film</h1>
+        <p>Explore les films, consulte les notes, lis les commentaires et retrouve les meilleurs titres par catégorie.</p>
 
-    <span class="category">
-        SAÉ Filmographie
-    </span>
-
-    <h1>
-        Bienvenue sur CinéFilms
-    </h1>
-
-    <p>
-        Consultez les films, les acteurs, les catégories et les avis des utilisateurs.
-    </p>
-
+        <div class="hero-actions">
+            <a href="/films/" class="primary-btn">Voir les films</a>
+            <a href="/top-films/" class="secondary-btn">Top films</a>
+        </div>
+    </div>
 </section>
 
 <section class="stats">
-
     <div>
         <strong>{{ nb_films }}</strong>
         <span>Films</span>
@@ -34,53 +30,53 @@
         <strong>{{ nb_commentaires }}</strong>
         <span>Commentaires</span>
     </div>
-
 </section>
 
-<h2>Top Films</h2>
+<div class="section-head">
+    <div>
+        <h2>Films populaires</h2>
+        <p>Les films les mieux notés par les utilisateurs.</p>
+    </div>
+    <a href="/top-films/">Voir le classement</a>
+</div>
 
 <section class="movie-grid">
+    {% for film in top_films %}
+        <article class="movie-card">
+            <a href="/film/{{ film.0 }}/">
+                {% if film.5 %}
+                    <img src="{{ film.5 }}" class="poster-img" alt="{{ film.1 }}">
+                {% else %}
+                    <div class="poster">{{ film.1|slice:":1" }}</div>
+                {% endif %}
+            </a>
 
-{% for film in top_films %}
+            <div class="movie-body">
+                <span class="pill">{{ film.3 }}</span>
+                <h3>{{ film.1 }}</h3>
+                <p>{{ film.2 }}</p>
+                <p class="rating">★ {{ film.4|default:"N/A" }}</p>
+                <a class="link-btn" href="/film/{{ film.0 }}/">Voir la fiche</a>
+            </div>
+        </article>
+    {% endfor %}
+</section>
 
-<article class="movie-card">
-
-    {% if film.5 %}
-        <img src="{{ film.5 }}" class="poster-img">
-    {% else %}
-        <div class="poster">
-            {{ film.1|slice:":1" }}
-        </div>
-    {% endif %}
-
-    <div class="movie-body">
-
-        <span class="category">
-            {{ film.3 }}
-        </span>
-
-        <h3>
-            {{ film.1 }}
-        </h3>
-
-        <p>
-            {{ film.2 }}
-        </p>
-
-        <p class="rating">
-            ★ {{ film.4 }}
-        </p>
-
-        <a class="main-btn" href="/film/{{ film.0 }}/">
-            Voir la fiche
-        </a>
-
+<div class="section-head">
+    <div>
+        <h2>Catégories</h2>
+        <p>Parcours les films par genre.</p>
     </div>
+    <a href="/categories/">Toutes les catégories</a>
+</div>
 
-</article>
-
-{% endfor %}
-
+<section class="category-grid">
+    {% for categorie in categories %}
+        <a class="category-card" href="/categorie/{{ categorie.0 }}/">
+            <h3>{{ categorie.1 }}</h3>
+            <p>{{ categorie.2 }}</p>
+        </a>
+    {% endfor %}
 </section>
 
 {% endblock %}

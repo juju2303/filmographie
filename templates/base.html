@@ -3,16 +3,21 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>CinéFilms</title>
+    <title>CinéScope</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 
 <header class="site-header">
-    <div class="header-main">
-        <a href="/" class="logo">
-            <span class="logo-box">CF</span>
-            <span>CinéFilms</span>
+    <div class="top-line"></div>
+
+    <div class="header-content">
+        <a href="/" class="brand">
+            <div class="brand-logo">CS</div>
+            <div>
+                <strong>CinéScope</strong>
+                <span>Films, avis et critiques</span>
+            </div>
         </a>
 
         <nav class="main-nav">
@@ -23,16 +28,17 @@
 
             {% if user.is_superuser %}
                 <a href="/film/ajouter/">Ajouter un film</a>
-            {% endif %}
+            	<a href="/admin-panel/">Admin</a>
+	    {% endif %}
         </nav>
 
-        <div class="user-nav">
+        <div class="account">
             {% if user.is_authenticated %}
                 <span>{{ user.username }}</span>
                 <a href="/deconnexion/">Déconnexion</a>
             {% else %}
                 <a href="/connexion/">Connexion</a>
-                <a href="/inscription/">Inscription</a>
+                <a class="account-btn" href="/inscription/">Inscription</a>
             {% endif %}
         </div>
     </div>

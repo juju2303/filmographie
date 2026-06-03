@@ -2,42 +2,28 @@
 
 {% block content %}
 
-<h1>Top Films</h1>
+<section class="page-title">
+    <h1>Top films</h1>
+    <p>Classement basé sur la moyenne des notes.</p>
+</section>
 
 <section class="ranking">
+    {% for film in films %}
+        <a class="rank-card" href="/film/{{ film.0 }}/">
+            <div class="rank-number">{{ forloop.counter }}</div>
 
-{% for film in films %}
+            {% if film.6 %}
+                <img src="{{ film.6 }}" class="rank-poster" alt="{{ film.1 }}">
+            {% endif %}
 
-<a
-class="rank-card"
-href="/film/{{ film.0 }}/">
+            <div>
+                <h3>{{ film.1 }}</h3>
+                <p>{{ film.2 }} • {{ film.3 }} • {{ film.4 }}</p>
+            </div>
 
-    <div class="rank-number">
-        {{ forloop.counter }}
-    </div>
-
-    <div>
-
-        <h3>
-            {{ film.1 }}
-        </h3>
-
-        <p>
-            {{ film.2 }}
-            -
-            {{ film.3 }}
-        </p>
-
-    </div>
-
-    <strong>
-        ★ {{ film.5 }}
-    </strong>
-
-</a>
-
-{% endfor %}
-
+            <strong>★ {{ film.5 }}/10</strong>
+        </a>
+    {% endfor %}
 </section>
 
 {% endblock %}
