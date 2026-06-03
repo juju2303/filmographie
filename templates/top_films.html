@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Top Films</h1>
+
+<section class="ranking">
+
+{% for film in films %}
+
+<a
+class="rank-card"
+href="/film/{{ film.0 }}/">
+
+    <div class="rank-number">
+        {{ forloop.counter }}
+    </div>
+
+    <div>
+
+        <h3>
+            {{ film.1 }}
+        </h3>
+
+        <p>
+            {{ film.2 }}
+            -
+            {{ film.3 }}
+        </p>
+
+    </div>
+
+    <strong>
+        ★ {{ film.5 }}
+    </strong>
+
+</a>
+
+{% endfor %}
+
+</section>
+
+{% endblock %}

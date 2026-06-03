@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>CinéFilms</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header class="topbar">
+
+    <a class="brand" href="/">
+        <div class="brand-logo">CF</div>
+
+        <div>
+            <strong>CinéFilms</strong>
+            <span>Filmographie</span>
+        </div>
+    </a>
+
+    <nav>
+
+        <a href="/">Accueil</a>
+
+        <a href="/films/">Films</a>
+
+        <a href="/categories/">Catégories</a>
+
+        <a href="/top-films/">Top Films</a>
+
+        {% if user.is_superuser %}
+            <a href="/film/ajouter/">Ajouter un film</a>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <a href="/deconnexion/">Déconnexion</a>
+        {% else %}
+            <a href="/connexion/">Connexion</a>
+            <a href="/inscription/">Inscription</a>
+        {% endif %}
+
+    </nav>
+
+</header>
+
+<main>
+
+{% block content %}
+{% endblock %}
+
+</main>
+
+</body>
+</html>

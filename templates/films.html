@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Tous les films</h1>
+
+<form class="filters" method="GET">
+
+    <input
+        type="text"
+        name="q"
+        placeholder="Recherche"
+        value="{{ recherche }}"
+    >
+
+    <select name="categorie">
+
+        <option value="">
+            Toutes les catégories
+        </option>
+
+        {% for categorie in categories %}
+
+            <option value="{{ categorie.0 }}">
+                {{ categorie.1 }}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+    <button type="submit">
+        Rechercher
+    </button>
+
+</form>
+
+<section class="movie-grid">
+
+{% for film in films %}
+
+<article class="movie-card">
+
+    {% if film.5 %}
+        <img src="{{ film.5 }}" class="poster-img">
+    {% else %}
+        <div class="poster">
+            {{ film.1|slice:":1" }}
+        </div>
+    {% endif %}
+
+    <div class="movie-body">
+
+        <span class="category">
+            {{ film.4 }}
+        </span>
+
+        <h3>
+            {{ film.1 }}
+        </h3>
+
+        <p>
+            {{ film.2 }}
+        </p>
+
+        <p>
+            {{ film.3 }}
+        </p>
+
+        <div class="actions">
+
+            <a class="main-btn small"
+               href="/film/{{ film.0 }}/">
+                Voir
+            </a>
+
+            {% if user.is_superuser %}
+
+            <a class="second-btn small"
+               href="/film/modifier/{{ film.0 }}/">
+                Modifier
+            </a>
+
+            <a class="danger-btn small"
+               href="/film/supprimer/{{ film.0 }}/">
+                Supprimer
+            </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</article>
+
+{% endfor %}
+
+</section>
+
+{% endblock %}

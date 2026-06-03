@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+    {{ categorie.0 }}
+</h1>
+
+<p>
+    {{ categorie.1 }}
+</p>
+
+<section class="movie-grid">
+
+{% for film in films %}
+
+<article class="movie-card">
+
+    {% if film.4 %}
+        <img src="{{ film.4 }}" class="poster-img">
+    {% else %}
+        <div class="poster">
+            {{ film.1|slice:":1" }}
+        </div>
+    {% endif %}
+
+    <div class="movie-body">
+
+        <h3>
+            {{ film.1 }}
+        </h3>
+
+        <p>
+            {{ film.2 }}
+        </p>
+
+        <p>
+            {{ film.3 }}
+        </p>
+
+        <a class="main-btn"
+           href="/film/{{ film.0 }}/">
+            Voir
+        </a>
+
+    </div>
+
+</article>
+
+{% endfor %}
+
+</section>
+
+{% endblock %}

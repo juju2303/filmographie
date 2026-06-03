@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Catégories</h1>
+
+<section class="category-grid">
+
+{% for categorie in categories %}
+
+<a
+class="category-box"
+href="/categorie/{{ categorie.0 }}/">
+
+    <h3>
+        {{ categorie.1 }}
+    </h3>
+
+    <p>
+        {{ categorie.2 }}
+    </p>
+
+    <span>
+        {{ categorie.3 }} film(s)
+    </span>
+
+</a>
+
+{% endfor %}
+
+</section>
+
+{% endblock %}
