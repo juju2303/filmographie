@@ -30,7 +30,7 @@ CREATE TABLE `acteur` (
   `age` int(11) DEFAULT NULL,
   `photo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_acteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,16 @@ INSERT INTO `acteur` VALUES
 (5,'Phoenix','Joaquin',50,'phoenix.jpg'),
 (6,'Downey Jr','Robert',60,'downey.jpg'),
 (7,'Winslet','Kate',49,'winslet.jpg'),
-(8,'Worthington','Sam',48,'worthington.jpg');
+(8,'Worthington','Sam',48,'worthington.jpg'),
+(9,'Chalamet','Timothee',28,'timothee.jpg'),
+(10,'Zendaya','Zendaya',27,'zendaya.jpg'),
+(11,'Murphy','Cillian',48,'cillian.jpg'),
+(12,'Pattinson','Robert',38,'pattinson.jpg'),
+(13,'Holland','Tom',28,'holland.jpg'),
+(14,'Stone','Emma',35,'emma.jpg'),
+(15,'Gosling','Ryan',43,'gosling.jpg'),
+(16,'Kaluuya','Daniel',35,'kaluuya.jpg'),
+(17,'Cruise','Tom',62,'cruise.jpg');
 /*!40000 ALTER TABLE `acteur` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -188,7 +197,7 @@ CREATE TABLE `auth_user` (
   `date_joined` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,8 +208,9 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
 INSERT INTO `auth_user` VALUES
-(1,'pbkdf2_sha256$1200000$onBBJhQmNk86HUQmLGAGod$j2ytZywnbpzKhq0K3LSRiGiSLgVhsWsxwnKO2cKcwEI=','2026-06-03 08:21:32.623775',1,'admin','','','',1,1,'2026-06-03 08:10:53.941449'),
-(2,'pbkdf2_sha256$1200000$JZlPHDkDvmKzYkCcMAoOUi$Z/jIKdooP0iM37CWcXXVOnY3TdcBMFbXfc8uUVD3yGs=',NULL,0,'demo','','','',0,1,'2026-06-03 08:49:39.671944');
+(1,'pbkdf2_sha256$1200000$onBBJhQmNk86HUQmLGAGod$j2ytZywnbpzKhq0K3LSRiGiSLgVhsWsxwnKO2cKcwEI=','2026-06-03 09:39:19.028359',1,'admin','','','',1,1,'2026-06-03 08:10:53.941449'),
+(2,'pbkdf2_sha256$1200000$JZlPHDkDvmKzYkCcMAoOUi$Z/jIKdooP0iM37CWcXXVOnY3TdcBMFbXfc8uUVD3yGs=','2026-06-03 09:00:30.058591',0,'demo','','','',0,1,'2026-06-03 08:49:39.671944'),
+(3,'pbkdf2_sha256$1200000$tGSqaME9e5IRzWCARm2xK1$febLe7UZ7EyOcDvRBsrrxfTG3ky6jgGkFnJmbTZ1ZiE=','2026-06-03 09:58:23.835579',1,'root','','','',1,1,'2026-06-03 09:44:05.576405');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -324,7 +334,7 @@ CREATE TABLE `commentaire` (
   KEY `id_personne` (`id_personne`),
   CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`id_film`) REFERENCES `film` (`id_film`) ON DELETE CASCADE,
   CONSTRAINT `commentaire_ibfk_2` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id_personne`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -342,7 +352,31 @@ INSERT INTO `commentaire` VALUES
 (5,4,4,9,'Film impressionnant visuellement.','2026-05-05',NULL),
 (6,5,5,10,'Excellent film dramatique.','2026-05-06',NULL),
 (7,6,6,8,'Tres bon film de super heros.','2026-05-07',NULL),
-(8,7,7,7,'Film interessant mais un peu long.','2026-05-08',NULL);
+(8,7,7,7,'Film interessant mais un peu long.','2026-05-08',NULL),
+(9,1,3,10,'Un film brillant avec une construction narrative impressionnante.','2026-06-01',NULL),
+(10,1,4,6,'Bon film, mais parfois difficile à suivre.','2026-06-02',NULL),
+(11,1,5,3,'Je n ai pas accroché au rythme du film.','2026-06-03',NULL),
+(12,2,3,9,'Très bon film historique avec une réalisation solide.','2026-06-01',NULL),
+(13,2,4,7,'Bon spectacle, même si certaines scènes sont longues.','2026-06-02',NULL),
+(14,2,5,4,'Pas mauvais, mais je m attendais à mieux.','2026-06-03',NULL),
+(15,3,3,10,'Une œuvre forte avec une ambiance unique.','2026-06-01',NULL),
+(16,3,4,8,'Très beau film, parfois lent mais marquant.','2026-06-02',NULL),
+(17,3,5,5,'Visuellement beau, mais trop long pour moi.','2026-06-03',NULL),
+(18,4,3,8,'Univers intéressant et effets visuels réussis.','2026-06-01',NULL),
+(19,4,4,6,'Correct, mais l histoire reste classique.','2026-06-02',NULL),
+(20,4,5,4,'Trop prévisible à mon goût.','2026-06-03',NULL),
+(21,5,3,9,'Film culte avec une forte dimension émotionnelle.','2026-06-01',NULL),
+(22,5,4,7,'Bon film, mais un peu trop long.','2026-06-02',NULL),
+(23,5,5,5,'Correct, sans plus.','2026-06-03',NULL),
+(24,6,3,9,'Un excellent film de super-héros sombre et maîtrisé.','2026-06-01',NULL),
+(25,6,4,8,'Très bon rythme et personnage marquant.','2026-06-02',NULL),
+(26,6,5,6,'Bien réalisé, mais trop sérieux.','2026-06-03',NULL),
+(27,7,3,8,'Performance principale impressionnante.','2026-06-01',NULL),
+(28,7,4,6,'Bonne ambiance, mais film assez lent.','2026-06-02',NULL),
+(29,7,5,3,'Trop sombre et pas assez rythmé.','2026-06-03',NULL),
+(30,8,3,10,'Un univers visuel fort et une mise en scène maîtrisée.','2026-06-01',NULL),
+(31,8,4,7,'Très beau film, même si le début est lent.','2026-06-02',NULL),
+(32,8,5,5,'Bon visuellement, mais pas assez captivant.','2026-06-03',NULL);
 /*!40000 ALTER TABLE `commentaire` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -490,7 +524,8 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
 INSERT INTO `django_session` VALUES
-('fn8of6tkylur03h8c19jvrz70ksmhcrp','.eJxVjMEOwiAQRP-FsyFAsVs8eu83kN1llaqhSWlPxn-XJj3oaZJ5b-atIm5rjluVJU5JXZRVp9-OkJ9SdpAeWO6z5rmsy0R6V_RBqx7nJK_r4f4dZKy5rd0tdSBMwMZbwkBhoC4YABCDZ7TkWyL2mNhLYOvQNdm74Kg3gwX1-QL_wzhH:1wUghY:xUGpfrY6JrR-t5gMZ3QZHnZVaIFnncYLlqfz9dSZiKo','2026-06-17 08:11:48.406983');
+('fn8of6tkylur03h8c19jvrz70ksmhcrp','.eJxVjMEOwiAQRP-FsyFAsVs8eu83kN1llaqhSWlPxn-XJj3oaZJ5b-atIm5rjluVJU5JXZRVp9-OkJ9SdpAeWO6z5rmsy0R6V_RBqx7nJK_r4f4dZKy5rd0tdSBMwMZbwkBhoC4YABCDZ7TkWyL2mNhLYOvQNdm74Kg3gwX1-QL_wzhH:1wUghY:xUGpfrY6JrR-t5gMZ3QZHnZVaIFnncYLlqfz9dSZiKo','2026-06-17 08:11:48.406983'),
+('goqqw1bmdzvih2jkxr1q4wpsya4i1p37','.eJxVjDsOwjAQBe_iGln-xjYlfc5g7a4XHECOFCcV4u4QKQW0b2beS2TY1pq3zkueijgLK06_GwI9uO2g3KHdZklzW5cJ5a7Ig3Y5zoWfl8P9O6jQ67f2pGOM2mkyNjjAayEKlFCpYHWKrmjLAyODchwIPSrDwfsYvFHJqkG8P9hYNz0:1wUiMh:zNeS9FOcdoo67prP3ouVEpsaJK_5_znhT-BcSY-lY5o','2026-06-17 09:58:23.841051');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -513,7 +548,7 @@ CREATE TABLE `film` (
   PRIMARY KEY (`id_film`),
   KEY `id_categorie` (`id_categorie`),
   CONSTRAINT `film_ibfk_1` FOREIGN KEY (`id_categorie`) REFERENCES `categorie` (`id_categorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -524,30 +559,38 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `film` WRITE;
 /*!40000 ALTER TABLE `film` DISABLE KEYS */;
 INSERT INTO `film` VALUES
-(1,'Inception',2010,'https://fr.web.img6.acsta.net/pictures/15/10/14/11/39/161116.jpg','Christopher Nolan',2),
-(2,'Gladiator',2000,'https://fr.web.img6.acsta.net/medias/nmedia/18/68/64/41/19254537.jpg','Ridley Scott',1),
-(3,'Interstellar',2014,'https://fr.web.img6.acsta.net/pictures/14/09/24/12/08/158828.jpg','Christopher Nolan',2),
-(4,'Avatar',2009,'https://fr.web.img6.acsta.net/medias/nmedia/18/78/95/70/19485155.jpg','James Cameron',2),
-(5,'Titanic',1997,'https://fr.web.img6.acsta.net/medias/nmedia/18/36/27/01/18455183.jpg','James Cameron',3),
-(6,'The Dark Knight',2008,'https://fr.web.img6.acsta.net/medias/nmedia/18/63/97/89/18949761.jpg','Christopher Nolan',1),
-(7,'Joker',2019,'https://fr.web.img6.acsta.net/pictures/19/09/03/12/02/4765874.jpg','Todd Phillips',7),
-(8,'Avengers Endgame',2019,'endgame.jpg','Anthony Russo',1),
-(9,'Mad Max Fury Road',2015,'madmax.jpg','George Miller',1),
-(10,'John Wick',2014,'johnwick.jpg','Chad Stahelski',1),
-(11,'Matrix',1999,'matrix.jpg','Wachowski',2),
-(12,'Blade Runner 2049',2017,'bladerunner.jpg','Denis Villeneuve',2),
-(13,'The Green Mile',1999,'greenmile.jpg','Frank Darabont',3),
-(14,'Forrest Gump',1994,'forrestgump.jpg','Robert Zemeckis',3),
-(15,'Very Bad Trip',2009,'hangover.jpg','Todd Phillips',4),
-(16,'Intouchables',2011,'intouchables.jpg','Olivier Nakache',4),
-(17,'Conjuring',2013,'conjuring.jpg','James Wan',5),
-(18,'Insidious',2010,'insidious.jpg','James Wan',5),
-(19,'Toy Story',1995,'toystory.jpg','John Lasseter',6),
-(20,'Le Roi Lion',1994,'lionking.jpg','Roger Allers',6),
-(21,'Seven',1995,'seven.jpg','David Fincher',7),
-(22,'Shutter Island',2010,'shutterisland.jpg','Martin Scorsese',7),
-(23,'Indiana Jones',1981,'indiana.jpg','Steven Spielberg',8),
-(24,'Pirates des Caraibes',2003,'pirates.jpg','Gore Verbinski',8);
+(1,'Inception',2010,'https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg','Christopher Nolan',2),
+(2,'Gladiator',2000,'https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg','Ridley Scott',1),
+(3,'Interstellar',2014,'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg','Christopher Nolan',2),
+(4,'Avatar',2009,'https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg','James Cameron',2),
+(5,'Titanic',1997,'https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg','James Cameron',3),
+(6,'The Dark Knight',2008,'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg','Christopher Nolan',1),
+(7,'Joker',2019,'https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg','Todd Phillips',7),
+(8,'Avengers Endgame',2019,'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg','Anthony Russo',1),
+(9,'Mad Max Fury Road',2015,'https://image.tmdb.org/t/p/w500/hA2ple9q4qnwxp3hKVNhroipsir.jpg','George Miller',1),
+(10,'John Wick',2014,'https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg','Chad Stahelski',1),
+(11,'Matrix',1999,'https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg','Wachowski',2),
+(12,'Blade Runner 2049',2017,'https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg','Denis Villeneuve',2),
+(13,'The Green Mile',1999,'https://image.tmdb.org/t/p/w500/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg','Frank Darabont',3),
+(14,'Forrest Gump',1994,'https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg','Robert Zemeckis',3),
+(15,'Very Bad Trip',2009,'https://image.tmdb.org/t/p/w500/uluhlXubGu1VxU63X9VHCLWDAYP.jpg','Todd Phillips',4),
+(16,'Intouchables',2011,'https://image.tmdb.org/t/p/w500/1QU7HKgsQbGpzsJbJK4pAVQV9F5.jpg','Olivier Nakache',4),
+(17,'Conjuring',2013,'https://image.tmdb.org/t/p/w500/wVYREutTvI2tmxr6ujrHT704wGF.jpg','James Wan',5),
+(18,'Insidious',2010,'https://image.tmdb.org/t/p/w500/tmlDFIUpGRKiuWm9Ixc6CYDk4y0.jpg','James Wan',5),
+(19,'Toy Story',1995,'https://image.tmdb.org/t/p/w500/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg','John Lasseter',6),
+(20,'Le Roi Lion',1994,'https://image.tmdb.org/t/p/w500/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg','Roger Allers',6),
+(21,'Seven',1995,'https://image.tmdb.org/t/p/w500/191nKfP0ehp3uIvWqgPbFmI4lv9.jpg','David Fincher',7),
+(22,'Shutter Island',2010,'https://image.tmdb.org/t/p/w500/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg','Martin Scorsese',7),
+(23,'Indiana Jones',1981,'https://image.tmdb.org/t/p/w500/ceG9VzoRAVGwivFU403Wc3AHRys.jpg','Steven Spielberg',8),
+(24,'Pirates des Caraibes',2003,'https://image.tmdb.org/t/p/w500/z8onk7LV9Mmw6zKz4hT6pzzvmvl.jpg','Gore Verbinski',8),
+(25,'Dune',2021,'https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg','Denis Villeneuve',2),
+(26,'Oppenheimer',2023,'https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg','Christopher Nolan',3),
+(27,'The Batman',2022,'https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg','Matt Reeves',7),
+(28,'Spider Man No Way Home',2021,'https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg','Jon Watts',1),
+(29,'Cars',2006,'https://image.tmdb.org/t/p/w500/2Touk3m5gzsqr1VsvxypdyHY5ci.jpg','John Lasseter',6),
+(30,'La La Land',2016,'https://image.tmdb.org/t/p/w500/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg','Damien Chazelle',3),
+(31,'Get Out',2017,'https://image.tmdb.org/t/p/w500/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg','Jordan Peele',5),
+(32,'Mission Impossible Fallout',2018,'https://image.tmdb.org/t/p/w500/AkJQpZp9WoNdj7pLYSj1L0RcMMN.jpg','Christopher McQuarrie',1);
 /*!40000 ALTER TABLE `film` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -585,7 +628,16 @@ INSERT INTO `jouer` VALUES
 (7,5),
 (8,6),
 (5,7),
-(4,8);
+(4,8),
+(25,9),
+(25,10),
+(26,11),
+(27,12),
+(28,13),
+(30,14),
+(30,15),
+(31,16),
+(32,17);
 /*!40000 ALTER TABLE `jouer` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -608,7 +660,7 @@ CREATE TABLE `personne` (
   PRIMARY KEY (`id_personne`),
   UNIQUE KEY `pseudo` (`pseudo`),
   UNIQUE KEY `mail` (`mail`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -625,7 +677,11 @@ INSERT INTO `personne` VALUES
 (4,'critiquepro','Thomas Leroy','thomas@mail.com','1234','professionnel'),
 (5,'cinema67','Emma Petit','emma@mail.com','1234','amateur'),
 (6,'proreview','David Morel','david@mail.com','1234','professionnel'),
-(7,'filmlover','Nina Garcia','nina@mail.com','1234','amateur');
+(7,'filmlover','Nina Garcia','nina@mail.com','1234','amateur'),
+(8,'cinemaMax','Maxime Durand','maxime@mail.com','1234','amateur'),
+(9,'avisPro','Claire Simon','claire@mail.com','1234','professionnel'),
+(10,'filmCritik','Nora Vidal','nora@mail.com','1234','professionnel'),
+(11,'movieFan','Adam Lopez','adam@mail.com','1234','amateur');
 /*!40000 ALTER TABLE `personne` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -640,4 +696,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-06-03 10:51:28
+-- Dump completed on 2026-06-03 12:02:10
